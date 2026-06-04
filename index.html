@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>AlgoChains — Team Org Chart</title>
+<style>
+  :root {
+    --bg: #0b0e14;
+    --bg-soft: #111722;
+    --card: #161d2b;
+    --card-hover: #1c2535;
+    --border: #232c3d;
+    --border-soft: #1a2230;
+    --text: #e6edf6;
+    --text-dim: #9aa7bd;
+    --text-faint: #5f6b80;
+    --teal: #00d4aa;
+    --teal-dim: #0c8f78;
+    --gold: #e0a73c;
+    --blue: #4f9cf2;
+    --orange: #e07a3c;
+    --line: #2c3852;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    background:
+      radial-gradient(1100px 600px at 50% -120px, #13283100 0%, transparent 60%),
+      var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.45;
+    padding: 48px 40px 72px;
+    min-height: 100vh;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  /* ---------- Header ---------- */
+  header { text-align: center; margin-bottom: 16px; }
+  .brand {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .brand-mark {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--teal);
+    color: #04201a; font-weight: 800; font-size: 20px;
+    display: flex; align-items: center; justify-content: center;
+    letter-spacing: -0.5px;
+  }
+  h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.8px; }
+  .tagline { color: var(--text-dim); font-size: 15px; margin-top: 6px; }
+
+  .stats {
+    display: flex; justify-content: center; gap: 40px;
+    margin: 26px 0 8px; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat .num { font-size: 24px; font-weight: 700; color: var(--teal); }
+  .stat .lbl { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  .divider { height: 1px; background: var(--border-soft); margin: 32px 0; }
+
+  /* ---------- Org tree (exec) ---------- */
+  .tree { display: flex; flex-direction: column; align-items: center; }
+
+  .ceo-wrap { display: flex; flex-direction: column; align-items: center; }
+
+  .connector-down { width: 2px; height: 28px; background: var(--line); }
+  .connector-row {
+    position: relative; display: flex; justify-content: center;
+    gap: 22px; padding-top: 28px;
+  }
+  /* horizontal bar above the leadership row */
+  .connector-row::before {
+    content: ""; position: absolute; top: 0; left: 12.5%; right: 12.5%;
+    height: 2px; background: var(--line);
+  }
+  .connector-row .leaf { position: relative; }
+  .connector-row .leaf::before {
+    content: ""; position: absolute; top: -28px; left: 50%;
+    width: 2px; height: 28px; background: var(--line);
+  }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 16px 16px;
+    width: 210px;
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center;
+    transition: border-color .15s, transform .15s;
+  }
+  .card:hover { border-color: var(--teal-dim); transform: translateY(-2px); }
+
+  .card.lead { width: 196px; }
+
+  .avatar {
+    width: 76px; height: 76px; border-radius: 50%;
+    object-fit: cover; background: var(--bg-soft);
+    border: 2px solid var(--border);
+    margin-bottom: 12px; display: block;
+  }
+  .avatar-fallback {
+    width: 76px; height: 76px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; font-weight: 700; color: #04201a;
+    background: var(--teal); margin-bottom: 12px;
+    border: 2px solid var(--border);
+  }
+  .card.ceo .avatar, .card.ceo .avatar-fallback { width: 96px; height: 96px; }
+  .card.ceo { width: 240px; border-color: var(--teal-dim); }
+  .card.ceo .name { font-size: 19px; }
+
+  .name { font-size: 15.5px; font-weight: 650; letter-spacing: -0.2px; }
+  .role { font-size: 12.5px; color: var(--teal); margin-top: 3px; font-weight: 500; }
+  .meta { font-size: 11.5px; color: var(--text-faint); margin-top: 5px; }
+
+  .li {
+    margin-top: 11px;
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; color: var(--text-dim); text-decoration: none;
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 3px 9px; transition: all .15s;
+  }
+  .li:hover { color: #fff; border-color: var(--blue); background: #14283f; }
+  .li svg { width: 11px; height: 11px; fill: var(--blue); }
+
+  /* department accent dots on role */
+  .card.adv .role { color: var(--gold); }
+  .card.mkt .role { color: var(--blue); }
+  .card.spc .role { color: var(--orange); }
+  .card.mts .role { color: var(--text-dim); }
+
+  /* ---------- Section ---------- */
+  .section { margin-top: 52px; }
+  .section-head {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 22px;
+  }
+  .section-head h2 { font-size: 18px; font-weight: 650; letter-spacing: -0.3px; }
+  .section-head .count {
+    font-size: 11px; color: var(--text-faint);
+    border: 1px solid var(--border); border-radius: 20px; padding: 2px 10px;
+  }
+  .section-head .bar { flex: 1; height: 1px; background: var(--border-soft); }
+  .tag-dot { width: 9px; height: 9px; border-radius: 50%; }
+  .dot-gold { background: var(--gold); }
+  .dot-blue { background: var(--blue); }
+  .dot-orange { background: var(--orange); }
+  .dot-slate { background: #6b7790; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+    gap: 16px;
+    justify-items: center;
+  }
+
+  footer {
+    margin-top: 64px; text-align: center;
+    color: var(--text-faint); font-size: 12px;
+  }
+  footer a { color: var(--teal); text-decoration: none; }
+
+  @media print {
+    body { padding: 24px; }
+    .card:hover { transform: none; }
+    .section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <h1>AlgoChains</h1>
+    </div>
+    <div class="tagline">Quant trading &amp; AI platform — the team building the future of algorithmic finance</div>
+
+    <div class="stats">
+      <div class="stat"><div class="num">29</div><div class="lbl">Team</div></div>
+      <div class="stat"><div class="num">5</div><div class="lbl">Leadership</div></div>
+      <div class="stat"><div class="num">4</div><div class="lbl">Advisors</div></div>
+      <div class="stat"><div class="num">16</div><div class="lbl">Technical Staff</div></div>
+      <div class="stat"><div class="num">6+</div><div class="lbl">Countries</div></div>
+    </div>
+  </header>
+
+  <div class="divider"></div>
+
+  <!-- ===== Executive tree ===== -->
+  <div class="tree" id="execTree"></div>
+
+  <!-- ===== Departments ===== -->
+  <div class="section">
+    <div class="section-head">
+      <span class="tag-dot dot-gold"></span>
+      <h2>Advisory Board</h2><span class="count">4</span><span class="bar"></span>
+    </div>
+    <div class="grid" id="advGrid"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <span class="tag-dot dot-blue"></span>
+      <h2>Marketing &amp; Communications</h2><span class="count">3</span><span class="bar"></span>
+    </div>
+    <div class="grid" id="mktGrid"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <span class="tag-dot dot-orange"></span>
+      <h2>Special Projects</h2><span class="count">1</span><span class="bar"></span>
+    </div>
+    <div class="grid" id="spcGrid"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <span class="tag-dot dot-slate"></span>
+      <h2>Members of Technical Staff</h2><span class="count">16</span><span class="bar"></span>
+    </div>
+    <div class="grid" id="mtsGrid"></div>
+  </div>
+
+  <footer>
+    Source: Slack workspace · Attio CRM · NDA records — June 2026 &nbsp;·&nbsp;
+    <a href="https://algochains.ai">algochains.ai</a>
+  </footer>
+
+</div>
+
+<script>
+const LI_SVG = '<svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>';
+
+function avatar(m) {
+  const initials = m.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+  const fb = '<div class="avatar-fallback">' + initials + '</div>';
+  if (!m.photo) return fb;
+  // force unavatar to 404 on miss so our branded initials show instead of its gray default
+  const src = m.photo + (m.photo.indexOf('?') === -1 ? '?fallback=false' : '&fallback=false');
+  return '<img class="avatar" src="' + src + '" alt="' + m.name +
+    '" onerror="this.outerHTML=\'<div class=&quot;avatar-fallback&quot;>' + initials + '</div>\'" />';
+}
+
+function card(m, cls) {
+  let html = '<div class="card ' + cls + '">';
+  html += avatar(m);
+  html += '<div class="name">' + m.name + '</div>';
+  html += '<div class="role">' + m.role + '</div>';
+  const meta = [m.company, m.location].filter(Boolean).join(' · ');
+  if (meta) html += '<div class="meta">' + meta + '</div>';
+  if (m.linkedin) html += '<a class="li" href="' + m.linkedin + '" target="_blank" rel="noopener">' + LI_SVG + 'LinkedIn</a>';
+  return html + '</div>';
+}
+
+// ---- Data ----
+// Photos only via public LinkedIn slugs (no emails in page source). Everyone
+// else renders branded initials. Photos are loaded live from unavatar.io by
+// each viewer's browser (per-IP quota), so they appear when you open the link.
+const ceo = { name:"Tyler Reynolds", role:"Founder & CEO", linkedin:"https://www.linkedin.com/in/tyler-r-reynolds", photo:"https://unavatar.io/linkedin/tyler-r-reynolds" };
+
+const leadership = [
+  { name:"James Rathborne", role:"CFO" },
+  { name:"Michael Ramirez", role:"COO" },
+  { name:"Eric Nystrom", role:"CTO", location:"Amsterdam" },
+  { name:"Roo Fernando", role:"Head of Technology" },
+];
+
+const advisors = [
+  { name:"Tom H", role:"Advisor", company:"VentureCreativeGroup", location:"London" },
+  { name:"Gerard", role:"Advisor", company:"VentureCreativeGroup", location:"London" },
+  { name:"Glenn Wong", role:"Advisor", company:"MIT · Harvard", linkedin:"https://www.linkedin.com/in/gpwong", photo:"https://unavatar.io/linkedin/gpwong" },
+  { name:"David Sauer", role:"Advisor" },
+];
+
+const marketing = [
+  { name:"Holly Jollie", role:"Marketing" },
+  { name:"Ronaldo Ramos-Vega", role:"Marketing" },
+  { name:"Maya", role:"Marketing", location:"London" },
+];
+
+const special = [
+  { name:"Robert Reynolds", role:"Special Projects Manager" },
+];
+
+const mts = [
+  { name:"Abdul Hafez", role:"Member of Technical Staff", location:"Pakistan" },
+  { name:"Jacob Biber", role:"Member of Technical Staff" },
+  { name:"Daniel Ball", role:"Member of Technical Staff", company:"Elysian Intelligence" },
+  { name:"Levi Gundert", role:"Member of Technical Staff", company:"Recorded Future", linkedin:"https://www.linkedin.com/in/levigundert", photo:"https://unavatar.io/linkedin/levigundert" },
+  { name:"Mark Thomasson", role:"Member of Technical Staff", company:"Mandiant · Google Cloud", linkedin:"https://www.linkedin.com/in/mthomasson", photo:"https://unavatar.io/linkedin/mthomasson" },
+  { name:"Kurt Walter", role:"Member of Technical Staff", company:"Hydden" },
+  { name:"Benya Chongolnee", role:"Member of Technical Staff", linkedin:"https://www.linkedin.com/in/bchongolnee", photo:"https://unavatar.io/linkedin/bchongolnee" },
+  { name:"Zachary Collins", role:"Member of Technical Staff" },
+  { name:"Aviral Sharma", role:"Member of Technical Staff", linkedin:"https://www.linkedin.com/in/aviral-sharma-b208a935", photo:"https://unavatar.io/linkedin/aviral-sharma-b208a935" },
+  { name:"Chris Gates", role:"Member of Technical Staff", company:"West Point · Red Team", linkedin:"https://www.linkedin.com/in/chrislgates", photo:"https://unavatar.io/linkedin/chrislgates" },
+  { name:"Davian Bowens", role:"Member of Technical Staff" },
+  { name:"Jeremy Berros", role:"Member of Technical Staff", location:"Paris", linkedin:"https://www.linkedin.com/in/jeremy-berros-55584b6", photo:"https://unavatar.io/linkedin/jeremy-berros-55584b6" },
+  { name:"Shubham Jain", role:"Member of Technical Staff", company:"UC Berkeley" },
+  { name:"Moeen Mohsin", role:"Member of Technical Staff", location:"Malaysia" },
+  { name:"Shyam Gonella", role:"Member of Technical Staff", location:"Denver" },
+  { name:"Spencer Janyk", role:"Member of Technical Staff", company:"Snowflake" },
+];
+
+// ---- Render exec tree ----
+let tree = '<div class="ceo-wrap">' + card(ceo, "ceo") + '</div>';
+tree += '<div class="connector-down"></div>';
+tree += '<div class="connector-row">';
+leadership.forEach(m => { tree += '<div class="leaf">' + card(m, "lead") + '</div>'; });
+tree += '</div>';
+document.getElementById('execTree').innerHTML = tree;
+
+// ---- Render departments ----
+document.getElementById('advGrid').innerHTML = advisors.map(m => card(m, "adv")).join('');
+document.getElementById('mktGrid').innerHTML = marketing.map(m => card(m, "mkt")).join('');
+document.getElementById('spcGrid').innerHTML = special.map(m => card(m, "spc")).join('');
+document.getElementById('mtsGrid').innerHTML = mts.map(m => card(m, "mts")).join('');
+</script>
+</body>
+</html>
