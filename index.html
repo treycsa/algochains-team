@@ -79,7 +79,7 @@
   }
   /* horizontal bar above the leadership row */
   .connector-row::before {
-    content: ""; position: absolute; top: 0; left: 12.5%; right: 12.5%;
+    content: ""; position: absolute; top: 0; left: 25%; right: 25%;
     height: 2px; background: var(--line);
   }
   .connector-row .leaf { position: relative; }
@@ -101,7 +101,7 @@
   }
   .card:hover { border-color: var(--teal-dim); transform: translateY(-2px); }
 
-  .card.lead { width: 196px; }
+  .card.lead { width: 200px; }
 
   .avatar {
     width: 76px; height: 76px; border-radius: 50%;
@@ -235,7 +235,7 @@
   </div>
 
   <footer>
-    Source: Slack workspace · Attio CRM · NDA records — June 2026 &nbsp;·&nbsp;
+    Source: Slack workspace · Attio CRM · LinkedIn · NDA records — June 2026 &nbsp;·&nbsp;
     <a href="https://algochains.ai">algochains.ai</a>
   </footer>
 
@@ -248,9 +248,7 @@ function avatar(m) {
   const initials = m.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
   const fb = '<div class="avatar-fallback">' + initials + '</div>';
   if (!m.photo) return fb;
-  // force unavatar to 404 on miss so our branded initials show instead of its gray default
-  const src = m.photo + (m.photo.indexOf('?') === -1 ? '?fallback=false' : '&fallback=false');
-  return '<img class="avatar" src="' + src + '" alt="' + m.name +
+  return '<img class="avatar" src="' + m.photo + '" alt="' + m.name +
     '" onerror="this.outerHTML=\'<div class=&quot;avatar-fallback&quot;>' + initials + '</div>\'" />';
 }
 
@@ -266,32 +264,32 @@ function card(m, cls) {
 }
 
 // ---- Data ----
-// Photos come from public Slack avatar URLs (real uploads, no rate limit) or
-// unavatar.io LinkedIn slugs. No emails appear in page source. Anyone without a
-// photo renders clean branded initials.
-const ceo = { name:"Tyler Reynolds", role:"Founder & CEO", linkedin:"https://www.linkedin.com/in/tyler-r-reynolds", photo:"https://unavatar.io/linkedin/tyler-r-reynolds" };
+// Real profile photos pulled from LinkedIn (and saved locally in photos/), so
+// they are permanent and load reliably here and in the PDF. People without a
+// real public photo render clean branded initials.
+const ceo = { name:"Tyler Reynolds", role:"Founder & CEO", linkedin:"https://www.linkedin.com/in/tyler-r-reynolds/", photo:"photos/tyler-reynolds.jpg" };
 
 const leadership = [
-  { name:"Michael Ramirez", role:"COO" },
-  { name:"Roo Fernando", role:"Head of Technology", linkedin:"https://www.linkedin.com/in/lahiru-fernando-6262a429", photo:"https://avatars.slack-edge.com/2026-05-06/11070442800914_6d24ce77b6eda8a96eaa_original.png" },
+  { name:"Michael Ramirez", role:"COO", linkedin:"https://www.linkedin.com/in/michael-ramirez-mr/", photo:"photos/michael-ramirez.jpg" },
+  { name:"Roo Fernando", role:"Head of Technology", linkedin:"https://www.linkedin.com/in/lahiru-fernando-6262a429/", photo:"photos/roo-fernando.jpg" },
 ];
 
 const advisors = [
-  { name:"Tom H", role:"Advisor", company:"VentureCreativeGroup", location:"London" },
-  { name:"Gerard", role:"Advisor", company:"VentureCreativeGroup", location:"London" },
-  { name:"Glenn Wong", role:"Advisor", company:"MIT · Harvard", linkedin:"https://www.linkedin.com/in/gpwong", photo:"https://unavatar.io/linkedin/gpwong" },
-  { name:"David Sauer", role:"Advisor" },
-  { name:"Levi Gundert", role:"Advisor", company:"Recorded Future", linkedin:"https://www.linkedin.com/in/levigundert", photo:"https://unavatar.io/linkedin/levigundert" },
-  { name:"Daniel Ball", role:"Advisor", company:"Elysian Intelligence" },
-  { name:"Chris Gates", role:"Advisor", company:"West Point · Red Team", linkedin:"https://www.linkedin.com/in/chrislgates", photo:"https://unavatar.io/linkedin/chrislgates" },
-  { name:"Kurt Walter", role:"Advisor", company:"Hydden" },
-  { name:"Nicholas Espinoza", role:"Advisor", company:"Cape", linkedin:"https://www.linkedin.com/in/nicholasjespinoza", photo:"https://unavatar.io/linkedin/nicholasjespinoza" },
+  { name:"Tom Hares", role:"Advisor", company:"The Venture Group", location:"London", linkedin:"https://www.linkedin.com/in/tomhares-buzzbike/", photo:"photos/tom-hares.jpg" },
+  { name:"Gerard McAtamney", role:"Advisor", company:"The Venture Group", location:"London", linkedin:"https://www.linkedin.com/in/gerardmcatamney/", photo:"photos/gerard-mcatamney.jpg" },
+  { name:"Glenn Wong", role:"Advisor", company:"MIT · Harvard", linkedin:"https://www.linkedin.com/in/gpwong/", photo:"photos/glenn-wong.jpg" },
+  { name:"David Sauer", role:"Advisor", company:"SpecterOps", linkedin:"https://www.linkedin.com/in/davidsauer/", photo:"photos/david-sauer.jpg" },
+  { name:"Levi Gundert", role:"Advisor", company:"Recorded Future", linkedin:"https://www.linkedin.com/in/levigundert/", photo:"photos/levi-gundert.jpg" },
+  { name:"Daniel Ball", role:"Advisor", company:"Elysian Intelligence", linkedin:"https://www.linkedin.com/in/daniel-j-ball/", photo:"photos/daniel-ball.jpg" },
+  { name:"Chris Gates", role:"Advisor", company:"West Point · Red Team", linkedin:"https://www.linkedin.com/in/chrislgates/", photo:"photos/chris-gates.jpg" },
+  { name:"Kurt Walter", role:"Advisor", company:"Hydden", linkedin:"https://www.linkedin.com/in/kurt-w-969a665/", photo:"photos/kurt-walter.jpg" },
+  { name:"Nicholas Espinoza", role:"Advisor", company:"Cape", linkedin:"https://www.linkedin.com/in/nicholasjespinoza/", photo:"photos/nicholas-espinoza.jpg" },
 ];
 
 const marketing = [
-  { name:"Holly Jollie", role:"Marketing", photo:"https://avatars.slack-edge.com/2025-10-22/9747230746277_b73602e2919d1b11cdc9_original.jpg" },
-  { name:"Ronaldo Ramos-Vega", role:"Marketing", linkedin:"https://www.linkedin.com/in/ronaldo-ramos-vega-4665b5270", photo:"https://avatars.slack-edge.com/2025-10-26/9775073976210_c9145a5fc5872216ef53_original.jpg" },
-  { name:"Maya", role:"Marketing", location:"London" },
+  { name:"Holly Jollie", role:"Marketing", linkedin:"https://www.linkedin.com/in/holly-jollie-928331413/", photo:"photos/holly-jollie.jpg" },
+  { name:"Ronaldo Ramos-Vega", role:"Marketing", linkedin:"https://www.linkedin.com/in/ronaldo-ramos-vega-4665b5270/", photo:"photos/ronaldo-ramos-vega.jpg" },
+  { name:"Maya Kalyan", role:"Marketing", location:"London", linkedin:"https://www.linkedin.com/in/maya-kalyan/" },
 ];
 
 const special = [
@@ -302,12 +300,12 @@ const mts = [
   { name:"Eric Nystrom", role:"Senior Member of Technical Staff", location:"Amsterdam" },
   { name:"Abdul Hafez", role:"Member of Technical Staff", location:"Pakistan" },
   { name:"Jacob Biber", role:"Member of Technical Staff" },
-  { name:"Mark Thomasson", role:"Member of Technical Staff", company:"Mandiant · Google Cloud", linkedin:"https://www.linkedin.com/in/mthomasson", photo:"https://unavatar.io/linkedin/mthomasson" },
-  { name:"Benya Chongolnee", role:"Member of Technical Staff", linkedin:"https://www.linkedin.com/in/bchongolnee", photo:"https://unavatar.io/linkedin/bchongolnee" },
+  { name:"Mark Thomasson", role:"Member of Technical Staff", company:"Mandiant · Google Cloud", linkedin:"https://www.linkedin.com/in/mthomasson/", photo:"photos/mark-thomasson.jpg" },
+  { name:"Benya Chongolnee", role:"Member of Technical Staff", linkedin:"https://www.linkedin.com/in/bchongolnee/", photo:"photos/benya-chongolnee.jpg" },
   { name:"Zachary Collins", role:"Member of Technical Staff" },
-  { name:"Aviral Sharma", role:"Member of Technical Staff", linkedin:"https://www.linkedin.com/in/aviral-sharma-b208a935", photo:"https://unavatar.io/linkedin/aviral-sharma-b208a935" },
+  { name:"Aviral Sharma", role:"Member of Technical Staff", linkedin:"https://www.linkedin.com/in/aviral-sharma-b208a935/", photo:"photos/aviral-sharma.jpg" },
   { name:"Davian Bowens", role:"Member of Technical Staff" },
-  { name:"Jeremy Berros", role:"Member of Technical Staff", location:"Paris", linkedin:"https://www.linkedin.com/in/jeremy-berros-55584b6", photo:"https://unavatar.io/linkedin/jeremy-berros-55584b6" },
+  { name:"Jeremy Berros", role:"Member of Technical Staff", location:"Paris", linkedin:"https://www.linkedin.com/in/jeremy-berros-55584b6/", photo:"photos/jeremy-berros.jpg" },
   { name:"Shubham Jain", role:"Member of Technical Staff", company:"UC Berkeley" },
   { name:"Moeen Mohsin", role:"Member of Technical Staff", location:"Malaysia" },
   { name:"Shyam Gonella", role:"Member of Technical Staff", location:"Denver" },
