@@ -189,9 +189,9 @@
 
     <div class="stats">
       <div class="stat"><div class="num">29</div><div class="lbl">Team</div></div>
-      <div class="stat"><div class="num">5</div><div class="lbl">Leadership</div></div>
-      <div class="stat"><div class="num">4</div><div class="lbl">Advisors</div></div>
-      <div class="stat"><div class="num">16</div><div class="lbl">Technical Staff</div></div>
+      <div class="stat"><div class="num">3</div><div class="lbl">Leadership</div></div>
+      <div class="stat"><div class="num">9</div><div class="lbl">Advisors</div></div>
+      <div class="stat"><div class="num">13</div><div class="lbl">Technical Staff</div></div>
       <div class="stat"><div class="num">6+</div><div class="lbl">Countries</div></div>
     </div>
   </header>
@@ -205,7 +205,7 @@
   <div class="section">
     <div class="section-head">
       <span class="tag-dot dot-gold"></span>
-      <h2>Advisory Board</h2><span class="count">4</span><span class="bar"></span>
+      <h2>Advisory Board</h2><span class="count">9</span><span class="bar"></span>
     </div>
     <div class="grid" id="advGrid"></div>
   </div>
@@ -229,7 +229,7 @@
   <div class="section">
     <div class="section-head">
       <span class="tag-dot dot-slate"></span>
-      <h2>Members of Technical Staff</h2><span class="count">16</span><span class="bar"></span>
+      <h2>Members of Technical Staff</h2><span class="count">13</span><span class="bar"></span>
     </div>
     <div class="grid" id="mtsGrid"></div>
   </div>
@@ -266,16 +266,14 @@ function card(m, cls) {
 }
 
 // ---- Data ----
-// Photos only via public LinkedIn slugs (no emails in page source). Everyone
-// else renders branded initials. Photos are loaded live from unavatar.io by
-// each viewer's browser (per-IP quota), so they appear when you open the link.
+// Photos come from public Slack avatar URLs (real uploads, no rate limit) or
+// unavatar.io LinkedIn slugs. No emails appear in page source. Anyone without a
+// photo renders clean branded initials.
 const ceo = { name:"Tyler Reynolds", role:"Founder & CEO", linkedin:"https://www.linkedin.com/in/tyler-r-reynolds", photo:"https://unavatar.io/linkedin/tyler-r-reynolds" };
 
 const leadership = [
-  { name:"James Rathborne", role:"CFO" },
   { name:"Michael Ramirez", role:"COO" },
-  { name:"Eric Nystrom", role:"CTO", location:"Amsterdam" },
-  { name:"Roo Fernando", role:"Head of Technology" },
+  { name:"Roo Fernando", role:"Head of Technology", linkedin:"https://www.linkedin.com/in/lahiru-fernando-6262a429", photo:"https://avatars.slack-edge.com/2026-05-06/11070442800914_6d24ce77b6eda8a96eaa_original.png" },
 ];
 
 const advisors = [
@@ -283,11 +281,16 @@ const advisors = [
   { name:"Gerard", role:"Advisor", company:"VentureCreativeGroup", location:"London" },
   { name:"Glenn Wong", role:"Advisor", company:"MIT · Harvard", linkedin:"https://www.linkedin.com/in/gpwong", photo:"https://unavatar.io/linkedin/gpwong" },
   { name:"David Sauer", role:"Advisor" },
+  { name:"Levi Gundert", role:"Advisor", company:"Recorded Future", linkedin:"https://www.linkedin.com/in/levigundert", photo:"https://unavatar.io/linkedin/levigundert" },
+  { name:"Daniel Ball", role:"Advisor", company:"Elysian Intelligence" },
+  { name:"Chris Gates", role:"Advisor", company:"West Point · Red Team", linkedin:"https://www.linkedin.com/in/chrislgates", photo:"https://unavatar.io/linkedin/chrislgates" },
+  { name:"Kurt Walter", role:"Advisor", company:"Hydden" },
+  { name:"Nicholas Espinoza", role:"Advisor", company:"Cape", linkedin:"https://www.linkedin.com/in/nicholasjespinoza", photo:"https://unavatar.io/linkedin/nicholasjespinoza" },
 ];
 
 const marketing = [
-  { name:"Holly Jollie", role:"Marketing" },
-  { name:"Ronaldo Ramos-Vega", role:"Marketing" },
+  { name:"Holly Jollie", role:"Marketing", photo:"https://avatars.slack-edge.com/2025-10-22/9747230746277_b73602e2919d1b11cdc9_original.jpg" },
+  { name:"Ronaldo Ramos-Vega", role:"Marketing", linkedin:"https://www.linkedin.com/in/ronaldo-ramos-vega-4665b5270", photo:"https://avatars.slack-edge.com/2025-10-26/9775073976210_c9145a5fc5872216ef53_original.jpg" },
   { name:"Maya", role:"Marketing", location:"London" },
 ];
 
@@ -296,16 +299,13 @@ const special = [
 ];
 
 const mts = [
+  { name:"Eric Nystrom", role:"Senior Member of Technical Staff", location:"Amsterdam" },
   { name:"Abdul Hafez", role:"Member of Technical Staff", location:"Pakistan" },
   { name:"Jacob Biber", role:"Member of Technical Staff" },
-  { name:"Daniel Ball", role:"Member of Technical Staff", company:"Elysian Intelligence" },
-  { name:"Levi Gundert", role:"Member of Technical Staff", company:"Recorded Future", linkedin:"https://www.linkedin.com/in/levigundert", photo:"https://unavatar.io/linkedin/levigundert" },
   { name:"Mark Thomasson", role:"Member of Technical Staff", company:"Mandiant · Google Cloud", linkedin:"https://www.linkedin.com/in/mthomasson", photo:"https://unavatar.io/linkedin/mthomasson" },
-  { name:"Kurt Walter", role:"Member of Technical Staff", company:"Hydden" },
   { name:"Benya Chongolnee", role:"Member of Technical Staff", linkedin:"https://www.linkedin.com/in/bchongolnee", photo:"https://unavatar.io/linkedin/bchongolnee" },
   { name:"Zachary Collins", role:"Member of Technical Staff" },
   { name:"Aviral Sharma", role:"Member of Technical Staff", linkedin:"https://www.linkedin.com/in/aviral-sharma-b208a935", photo:"https://unavatar.io/linkedin/aviral-sharma-b208a935" },
-  { name:"Chris Gates", role:"Member of Technical Staff", company:"West Point · Red Team", linkedin:"https://www.linkedin.com/in/chrislgates", photo:"https://unavatar.io/linkedin/chrislgates" },
   { name:"Davian Bowens", role:"Member of Technical Staff" },
   { name:"Jeremy Berros", role:"Member of Technical Staff", location:"Paris", linkedin:"https://www.linkedin.com/in/jeremy-berros-55584b6", photo:"https://unavatar.io/linkedin/jeremy-berros-55584b6" },
   { name:"Shubham Jain", role:"Member of Technical Staff", company:"UC Berkeley" },
